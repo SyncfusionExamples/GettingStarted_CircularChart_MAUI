@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
+             xmlns:model="clr-namespace:CircularChartSample"
+             x:Class="CircularChartSample.MainPage">
+
+
+    <ContentPage.Content>
+        <chart:SfCircularChart>
+        <chart:SfCircularChart.Title>
+            <Label Text="PRODUCT SALES" />
+        </chart:SfCircularChart.Title>
+        
+            <chart:SfCircularChart.BindingContext>
+                <model:ViewModel />
+            </chart:SfCircularChart.BindingContext>
+
+            <chart:SfCircularChart.Legend>
+            <chart:ChartLegend />
+        </chart:SfCircularChart.Legend>
+            
+        <chart:PieSeries ItemsSource="{Binding Data}"
+                         ShowDataLabels="True"
+                         XBindingPath="Product"
+                         EnableTooltip="True"
+                         YBindingPath="SalesRate" />
+    </chart:SfCircularChart>
+    </ContentPage.Content>
+</ContentPage>
