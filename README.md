@@ -7,24 +7,20 @@
 3. To initialize the control, import the Chart namespace.
 4. Initialize [SfCircularChart](https://help.syncfusion.com/cr/maui/Syncfusion.Maui.Charts.SfCircularChart.html).
 
-{% tabs %} 
-
-{% highlight xaml %}
-
+###### Xaml
+```xaml
 <ContentPage   
     . . .
     xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts">
 
     <chart:SfCircularChart/>
 </ContentPage>
- 
-{% endhighlight %}
+```
 
-{% highlight C# %}
-
+###### C#
+```C#
 using Syncfusion.Maui.Charts;
 . . .
-
 public partial class MainWindow : ContentPage
 {
     public MainPage()
@@ -33,16 +29,14 @@ public partial class MainWindow : ContentPage
         SfCircularChart chart = new SfCircularChart();
     }
 }   
-{% endhighlight %}
-
-{% endtabs %}
+```
 
 ## Register the handler
 
 Syncfusion.Maui.Core nuget is a dependent package for all Syncfusion controls of .NET MAUI. In the MauiProgram.cs file, register the handler for Syncfusion core.
 
-{% highlight C# %}
-
+######
+```C#
 using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 using Microsoft.Maui.Controls.Compatibility;
@@ -69,33 +63,23 @@ namespace ChartGettingStarted
         }
     }
 }
-
-{% endhighlight %} 
+```
 
 ## Initialize view model
 
 Now, let us define a simple data model that represents a data point in the chart.
-
-{% tabs %}  
-
-{% highlight c# %}
-
+###### C#
+```C#
 public class Sales
 {
     public string Product { get; set; }
     public double SalesRate { get; set; }
 }
-
-{% endhighlight %} 
-
-{% endtabs %} 
+```
 
 Next, create a view model class and initialize a list of `Model` objects as follows.
-
-{% tabs %}  
-
-{% highlight c# %}
-
+###### 
+```C#
 public class ChartViewModel
 {
     public List<Sales> Data { get; set; }
@@ -112,19 +96,13 @@ public class ChartViewModel
         };
     }
 }
+```
 
-{% endhighlight %} 
+* Create a `ViewModel` instance and set it as the chart's `BindingContext`. This enables property binding from `ViewModel` class.
 
-{% endtabs %} 
-
-Create a `ViewModel` instance and set it as the chart's `BindingContext`. This enables property binding from `ViewModel` class.
-
-N> Add namespace of `ViewModel` class to your XAML Page, if you prefer to set `BindingContext` in XAML.
-
-{% tabs %} 
-
-{% highlight xaml %} 
-
+* Add namespace of `ViewModel` class to your XAML Page, if you prefer to set `BindingContext` in XAML.
+###### Xaml
+```xaml 
 <ContentPage
     . . .
     xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
@@ -136,41 +114,32 @@ N> Add namespace of `ViewModel` class to your XAML Page, if you prefer to set `B
         </chart:SfCircularChart.BindingContext>
     </chart:SfCircularChart>
 </ContentPage>
-
-{% endhighlight %}
-
-{% highlight C# %} 
-
+```
+###### C#
+```C#
 ChartViewModel viewModel = new ChartViewModel();
 chart.BindingContext = viewModel;
-
-{% endhighlight %}
-
-{% endtabs %} 
+```
 
 ## Populate chart with data
 
 Adding [PieSeries](https://help.syncfusion.com/cr/maui/Syncfusion.Maui.Charts.PieSeries.html) to the charts [Series](https://help.syncfusion.com/cr/maui/Syncfusion.Maui.Charts.SfCircularChart.html#Syncfusion_Maui_Charts_SfCircularChart_Series) collection and binding `Data` to the series [ItemsSource](https://help.syncfusion.com/cr/maui/Syncfusion.Maui.Charts.ChartSeries.html#Syncfusion_Maui_Charts_ChartSeries_ItemsSource) property from its BindingContext to create our own Product Sales Pie chart.
 
-N> The circular chart has [Series](https://help.syncfusion.com/cr/maui/Syncfusion.Maui.Charts.SfCircularChart.html#Syncfusion_Maui_Charts_SfCircularChart_Series) as its default content.
+* The circular chart has [Series](https://help.syncfusion.com/cr/maui/Syncfusion.Maui.Charts.SfCircularChart.html#Syncfusion_Maui_Charts_SfCircularChart_Series) as its default content.
 
-N> To plot the series, the [XBindingPath](https://help.syncfusion.com/cr/maui/Syncfusion.Maui.Charts.ChartSeries.html#Syncfusion_Maui_Charts_ChartSeries_XBindingPath) and [YBindingPath](https://help.syncfusion.com/cr/maui/Syncfusion.Maui.Charts.CircularSeries.html#Syncfusion_Maui_Charts_CircularSeries_YBindingPath) properties must be configured so that the chart may get values from the respective properties in the data model.
+* To plot the series, the [XBindingPath](https://help.syncfusion.com/cr/maui/Syncfusion.Maui.Charts.ChartSeries.html#Syncfusion_Maui_Charts_ChartSeries_XBindingPath) and [YBindingPath](https://help.syncfusion.com/cr/maui/Syncfusion.Maui.Charts.CircularSeries.html#Syncfusion_Maui_Charts_CircularSeries_YBindingPath) properties must be configured so that the chart may get values from the respective properties in the data model.
 
-{% tabs %}   
-
-{% highlight xaml %}
-
+###### Xaml
+```xaml
 <chart:SfCircularChart>
     . . .
     <chart:PieSeries ItemsSource="{Binding Data}" 
                     XBindingPath="Product" 
                     YBindingPath="SalesRate"/>
 </chart:SfCircularChart>
-
-{% endhighlight %}
-
-{% highlight C# %}
-
+```
+###### C#
+```C#
 SfCircularChart chart = new SfCircularChart();
 ChartViewModel viewModel = new ChartViewModel();
 chart.BindingContext = viewModel;
@@ -179,127 +148,93 @@ series.ItemsSource = viewModel.Data;
 series.XBindingPath = "Product";
 series.YBindingPath = "SalesRate";
 chart.Series.Add(series);
-
-{% endhighlight %}
-
-{% endtabs %} 
+```
 
 ## Add a title
 
 The title of the chart acts as the title to provide quick information to the user about the data being plotted in the chart. You can set title using the [Title](https://help.syncfusion.com/cr/maui/Syncfusion.Maui.Charts.ChartBase.html#Syncfusion_Maui_Charts_ChartBase_Title) property of circular chart as follows.
 
-{% tabs %} 
-
-{% highlight xaml %}
-
+###### Xaml
+```xaml
 <chart:SfCircularChart>
     <chart:SfCircularChart.Title>
         <Label Text="PRODUCT SALES"/>
     </chart:SfCircularChart.Title>
     . . .
 </chart:SfCircularChart>
-
-{% endhighlight %}
-
-{% highlight C# %}
-
+```
+###### C#
+```C#
 SfCircularChart chart = new SfCircularChart();
 chart.Title = new Label
 {
     Text = "PRODUCT SALES"
 };
-
-{% endhighlight %}
-
-{% endtabs %}  
+``` 
 
 ## Enable the data labels
 
 The [ShowDataLabels](https://help.syncfusion.com/cr/maui/Syncfusion.Maui.Charts.ChartSeries.html#Syncfusion_Maui_Charts_ChartSeries_ShowDataLabels) property of series can be used to enable data labels to improve the readability of the circular chart. The label visibility is set to `False` by default.
 
-{% tabs %} 
-
-{% highlight xaml %}
-
+###### Xaml
+```xaml
 <chart:SfCircularChart>
     . . .
     <chart:PieSeries ShowDataLabels="True"/>
 </chart:SfCircularChart>
-
-{% endhighlight %}
-
-{% highlight C# %}
-
+```
+###### C#
+```C#
 SfCircularChart chart = new SfCircularChart();
 . . .
 PieSeries series = new PieSeries();
 series.ShowDataLabels = true;
 chart.Series.Add(series);
-
-{% endhighlight %}
-
-{% endtabs %} 
+``` 
 
 ## Enable a legend
 
 The legend provides information about the data point displayed in the circular chart. The [Legend](https://help.syncfusion.com/cr/maui/Syncfusion.Maui.Charts.ChartBase.html#Syncfusion_Maui_Charts_ChartBase_Legend) property of the chart was used to enable it.
 
-{% tabs %} 
-
-{% highlight xaml %}
-
+###### Xaml
+```xaml
 <chart:SfCircularChart>
     . . .
     <chart:SfCircularChart.Legend>
     <chart:ChartLegend/>
     </chart:SfCircularChart.Legend>
 </chart:SfCircularChart>
-
-{% endhighlight %}
-
-{% highlight C# %}
-
+```
+###### C#
+```C#
 SfCircularChart chart = new SfCircularChart();
 . . .
 chart.Legend = new ChartLegend();
-
-{% endhighlight %}
-
-{% endtabs %} 
+```
 
 ## Enable Tooltip
 
 Tooltips are used to show information about the segment, when mouse over on it. Enable tooltip by setting series [EnableTooltip](https://help.syncfusion.com/cr/maui/Syncfusion.Maui.Charts.ChartSeries.html#Syncfusion_Maui_Charts_ChartSeries_EnableTooltip) property as true.
 
-{% tabs %} 
-
-{% highlight xaml %}
-
+###### Xaml
+```xaml
 <chart:SfCircularChart>
     . . .
     <chart:PieSeries EnableTooltip="True"/>
 </chart:SfCircularChart>
-
-{% endhighlight %}
-
-{% highlight C# %}
-
+```
+###### C#
+```C#
 SfCircularChart chart = new SfCircularChart();
 . . .
 PieSeries series = new PieSeries();
 series.EnableTooltip = true;
 chart.Series.Add(series);
-
-{% endhighlight %}
-
-{% endtabs %}
+```
 
 The following code example gives you the complete code of above configurations.
-
-{% tabs %} 
-
-{% highlight xaml %}
-
+###### Xaml
+```xaml
 <chart:SfCircularChart>
     <chart:SfCircularChart.Title>
         <Label Text="PRODUCT SALES"/>
@@ -317,11 +252,9 @@ The following code example gives you the complete code of above configurations.
 		EnableTooltip="True"
 		YBindingPath="SalesRate"/>
 </chart:SfCircularChart>
- 
-{% endhighlight %}
-
-{% highlight C# %}
-
+ ```
+###### C#
+```C#
 using Syncfusion.Maui.Charts;
 . . .
 public partial class MainPage : ContentPage
@@ -347,9 +280,6 @@ public partial class MainPage : ContentPage
         this.Content = chart;
     }
 }
-
-{% endhighlight %}
-
-{% endtabs %}
+```
 
 ![Pie chart in .NET MAUI Chart](Getting_started-images/MAUI_pie_chart.png)
