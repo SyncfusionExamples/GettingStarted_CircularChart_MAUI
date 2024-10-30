@@ -13,7 +13,7 @@
         </chart:SfCircularChart.Title>
         
             <chart:SfCircularChart.BindingContext>
-                <model:ViewModel />
+                <model:SalesViewModel />
             </chart:SfCircularChart.BindingContext>
 
             <chart:SfCircularChart.Legend>

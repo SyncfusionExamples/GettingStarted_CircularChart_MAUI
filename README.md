@@ -27,6 +27,7 @@ public partial class MainWindow : ContentPage
     {
         this.InitializeComponent();
         SfCircularChart chart = new SfCircularChart();
+        this.Content = chart;
     }
 }   
 ```
@@ -70,37 +71,37 @@ namespace ChartGettingStarted
 Now, let us define a simple data model that represents a data point in the chart.
 ###### C#
 ```C#
-public class Sales
+public class SalesModel
 {
     public string Product { get; set; }
     public double SalesRate { get; set; }
 }
 ```
 
-Next, create a view model class and initialize a list of `Model` objects as follows.
+Next, create a SalesViewModel class and initialize a list of `SalesModel` objects as follows.
 ###### 
 ```C#
-public class ChartViewModel
+public class SalesViewModel
 {
-    public List<Sales> Data { get; set; }
+    public List<SalesModel> Data { get; set; }
 
-    public ChartViewModel()
+    public SalesViewModel()
     {
-        Data = new List<Sales>()
+        Data = new List<SalesModel>()
         {
-            new Sales(){Product = "iPad", SalesRate = 25},
-            new Sales(){Product = "iPhone", SalesRate = 35},
-            new Sales(){Product = "MacBook", SalesRate = 15},
-            new Sales(){Product = "Mac", SalesRate = 5},
-            new Sales(){Product = "Others", SalesRate = 10},
+            new SalesModel(){Product = "iPad", SalesRate = 25},
+            new SalesModel(){Product = "iPhone", SalesRate = 35},
+            new SalesModel(){Product = "MacBook", SalesRate = 15},
+            new SalesModel(){Product = "Mac", SalesRate = 5},
+            new SalesModel(){Product = "Others", SalesRate = 10},
         };
     }
 }
 ```
 
-* Create a `ViewModel` instance and set it as the chart's `BindingContext`. This enables property binding from `ViewModel` class.
+* Create a `SalesViewModel` instance and set it as the chart's `BindingContext`. This enables property binding from `SalesViewModel` class.
 
-* Add namespace of `ViewModel` class to your XAML Page, if you prefer to set `BindingContext` in XAML.
+* Add namespace of `SalesViewModel` class to your XAML Page, if you prefer to set `BindingContext` in XAML.
 ###### Xaml
 ```xaml 
 <ContentPage
@@ -110,15 +111,16 @@ public class ChartViewModel
 
     <chart:SfCircularChart>
         <chart:SfCircularChart.BindingContext>
-        <model:ChartViewModel/>
+            <model:SalesViewModel/>
         </chart:SfCircularChart.BindingContext>
     </chart:SfCircularChart>
 </ContentPage>
 ```
 ###### C#
 ```C#
-ChartViewModel viewModel = new ChartViewModel();
-chart.BindingContext = viewModel;
+SfCircularChart chart = new SfCircularChart();
+this.BindingContext = new SalesViewModel();
+this.Content = chart;
 ```
 
 ## Populate chart with data
@@ -141,7 +143,7 @@ Adding [PieSeries](https://help.syncfusion.com/cr/maui/Syncfusion.Maui.Charts.Pi
 ###### C#
 ```C#
 SfCircularChart chart = new SfCircularChart();
-ChartViewModel viewModel = new ChartViewModel();
+SalesViewModel viewModel = new SalesViewModel();
 chart.BindingContext = viewModel;
 PieSeries series = new PieSeries();
 series.ItemsSource = viewModel.Data;
@@ -240,7 +242,7 @@ The following code example gives you the complete code of above configurations.
         <Label Text="PRODUCT SALES"/>
     </chart:SfCircularChart.Title>
     <chart:SfCircularChart.BindingContext>
-        <model:ChartViewModel/>
+        <model:SalesViewModel/>
     </chart:SfCircularChart.BindingContext>
     <chart:SfCircularChart.Legend>
         <chart:ChartLegend/>
@@ -267,7 +269,7 @@ public partial class MainPage : ContentPage
             Text = "PRODUCT SALES"
         };
         chart.Legend = new ChartLegend();
-        ChartViewModel viewModel = new ChartViewModel();
+        SalesViewModel viewModel = new SalesViewModel();
         chart.BindingContext = viewModel;
 
         PieSeries series = new PieSeries();
