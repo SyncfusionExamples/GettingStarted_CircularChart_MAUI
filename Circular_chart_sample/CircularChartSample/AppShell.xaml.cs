@@ -1,9 +1,10 @@
-﻿namespace CircularChartSample;
-
-public partial class AppShell : Shell
+﻿namespace CircularChartSample
 {
-	public AppShell()
-	{
-		InitializeComponent();
-	}
+    public partial class AppShell : Shell
+    {
+        public AppShell()
+        {
+            InitializeComponent();
+        }
+    }
 }
